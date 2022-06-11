@@ -1,6 +1,7 @@
 package com.tenzo.mini_project2.security.jwt;
 
 import com.tenzo.mini_project2.domain.models.User;
+import com.tenzo.mini_project2.security.dto.UserDto;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -11,13 +12,13 @@ import java.util.Collection;
 
 public class UserDetailsImpl implements UserDetails {
 
-    private final User user;
+    private final UserDto user;
 
-    public UserDetailsImpl(User user) {
+    public UserDetailsImpl(UserDto user) {
         this.user = user;
     }
 
-    public User getUser() {
+    public UserDto getUser() {
         return user;
     }
 
@@ -28,7 +29,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user.getNickname();
+        return user.getEmail();
     }
 
     @Override

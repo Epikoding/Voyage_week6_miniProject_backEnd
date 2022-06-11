@@ -1,17 +1,15 @@
-package com.tenzo.mini_project2.security.jwt.JwtUtils;
+package com.tenzo.mini_project2.security.provider;
 
-import com.tenzo.mini_project2.domain.respository.UserRepository;
+import com.tenzo.mini_project2.security.dto.UserDto;
 import com.tenzo.mini_project2.security.dto.UserResponseDto;
 import com.tenzo.mini_project2.security.jwt.UserDetailsImpl;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import com.tenzo.mini_project2.security.service.JwtTokenProvider;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -21,13 +19,12 @@ import java.security.Key;
 import java.util.Date;
 
 @Component
-public class JwtUtils {
-
+public class JwtTokenProviderImpl implements JwtTokenProvider {
 
     private final Key key;
 
 
-    public JwtUtils(@Value("${jwt.secret}") String secretKey) {
+    public JwtTokenProviderImpl(@Value("${jwt.secret}") String secretKey) {
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
@@ -43,17 +40,17 @@ public class JwtUtils {
     }
 
     public UserResponseDto.TokenInfo generateToken(UserDetailsImpl userDetails) {
-        String token = null;
 
         long now = (new Date()).getTime();
 
         // access token
         Date accessTokenExpiresIn = new Date(now + JwtSetting.ExpireTime.ACCESS_TOKEN_EXPIRE_TIME.getExpireTime());
         String accessToken = Jwts.builder()
+                //기존 username -> nickname
                 .setSubject(userDetails.getUsername())
                 .claim("userId", userDetails.getUser().getId())
                 .claim("pw", userDetails.getPassword())
-                .claim("login_id",userDetails.getUser().getLogin_id())
+                .claim("role", userDetails.getUser().getRole())
                 .setExpiration(accessTokenExpiresIn)
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
@@ -75,21 +72,46 @@ public class JwtUtils {
 
     }
 
-//    public Authentication getAuthentication(String accessToken){
-//        Claims claims = parseClaims(accessToken);
-//        if(claims.getSubject() ==null){
-//            throw new RuntimeException("권한이 없는 사용자 입니다.");
-//        }
-////        User user = new User(claims.get(""))
-////        UserDetails userDetails = new UserDetailsImpl()
-//
-//    }
-    private Claims parseClaims(String accessToken) {
-        try {
-            return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(accessToken).getBody();
-        } catch (ExpiredJwtException e) {
-            return e.getClaims();
+    public Authentication getAuthentication(String accessToken) {
+        UserDetails userDetails = new UserDetailsImpl(parseClaims(accessToken));
+        return new UsernamePasswordAuthenticationToken(userDetails, userDetails.getAuthorities());
+
+    }
+
+    public UserDetails getUserDetails(String accessToken) {
+        return new UserDetailsImpl(parseClaims(accessToken));
+    }
+
+    public UserDto parseClaims(String accessToken) {
+
+        Claims claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(accessToken).getBody();
+        if (claims.getSubject() == null) {
+            throw new RuntimeException("권한이 없는 사용자 입니다.");
         }
+        return UserDto.builder()
+                .id((Long) claims.get("userId"))
+                .password(String.valueOf(claims.get("pw")))
+                .email(String.valueOf(claims.getSubject()))
+                .role(String.valueOf(claims.get("role")))
+                .build();
+    }
+
+    public Boolean validateToken(String token) {
+        try {
+            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+
+    }
+
+    public Long getExpiration(String accessToken) {
+        // accessToken 남은 유효시간
+        Date expiration = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(accessToken).getBody().getExpiration();
+        // 현재 시간
+        long now = new Date().getTime();
+        return (expiration.getTime() - now);
     }
 
 }

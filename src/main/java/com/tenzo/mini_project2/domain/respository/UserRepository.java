@@ -10,6 +10,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findUserById(Long id);
     Optional<User> findById(Long id);
+
+    boolean existsByEmail(String email);
 }
 
 // find 뒤에는 table이 들어온다.
