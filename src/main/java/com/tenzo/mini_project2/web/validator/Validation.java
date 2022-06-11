@@ -1,4 +1,4 @@
-package com.tenzo.mini_project2.web.validation;
+package com.tenzo.mini_project2.web.validator;
 
 import org.springframework.stereotype.Component;
 
