@@ -1,6 +1,7 @@
 package com.tenzo.mini_project2.domain.models;
 
 
+import com.tenzo.mini_project2.security.model.User;
 import lombok.Getter;
 
 import javax.persistence.Entity;

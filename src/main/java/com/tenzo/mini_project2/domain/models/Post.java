@@ -24,9 +24,9 @@ public class Post {
     @Column(nullable = false)
     private String tags;
 
-    @OneToMany(mappedBy = "post")
-    @JoinColumn(nullable = true)
-    private List<Comment> commentList;
+//    @OneToMany(mappedBy = "post")
+//    @JoinColumn(nullable = true)
+//    private List<Comment> commentList;
 
     @Column(nullable = false)
     private String position;

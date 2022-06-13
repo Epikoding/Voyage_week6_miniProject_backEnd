@@ -1,7 +1,7 @@
 package com.tenzo.mini_project2.web.validator;
 
-import com.tenzo.mini_project2.domain.models.User;
-import com.tenzo.mini_project2.domain.respository.UserRepository;
+import com.tenzo.mini_project2.security.model.User;
+import com.tenzo.mini_project2.security.repository.UserRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
