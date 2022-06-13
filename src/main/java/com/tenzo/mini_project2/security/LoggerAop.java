@@ -14,9 +14,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class LoggerAop {
 
-    @Pointcut("execution(public * com.tenzo.mini_project2.security..*(..))")
+    @Pointcut("execution(public * com.tenzo.mini_project2..*(..))")
     public void applicationPackagePointcut() {
     }
+
     private final Logger log = LoggerFactory.getLogger(this.getClass());
     @AfterThrowing(pointcut = "applicationPackagePointcut()",throwing = "e")
     public void logAfterThrowing(JoinPoint joinPoint, Throwable e) {
