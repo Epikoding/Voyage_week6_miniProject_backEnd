@@ -4,14 +4,13 @@ import com.tenzo.mini_project2.domain.models.Comment;
 import com.tenzo.mini_project2.domain.models.Post;
 import com.tenzo.mini_project2.domain.respository.CommentRepository;
 import com.tenzo.mini_project2.domain.respository.PostRepository;
-import com.tenzo.mini_project2.domain.respository.UserRepository;
 
 import com.tenzo.mini_project2.security.UserDetailsImpl;
 import com.tenzo.mini_project2.security.model.User;
+import com.tenzo.mini_project2.security.repository.UserRepository;
 import com.tenzo.mini_project2.web.dto.commentDto.CommentDto;
 import com.tenzo.mini_project2.web.dto.postDto.PostRequestDto;
 import com.tenzo.mini_project2.web.dto.postDto.postResponseDto;
-import com.tenzo.mini_project2.web.validator.UserValidator;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
@@ -25,7 +24,7 @@ public class PostService {
     private final CommentRepository commentRepository;
     private final UserRepository userRepository;
 
-    private final UserValidator userValidator;
+
     @Transactional
     // TODO: 2022/06/13 아래 방식이 맞는지 확인 받아야함.
     public postResponseDto enrollMeme(@AuthenticationPrincipal UserDetailsImpl userDetails, PostRequestDto postRequestDto) {
@@ -42,16 +41,16 @@ public class PostService {
     }
     @Transactional
     public Comment postComment(CommentDto commentDto) {
-        Post postFound = postRepository.findById(commentDto.getPostId()).get();
-        User userFound = userRepository.findUserById(commentDto.getUserId()).get();
-
-        Comment comment = Comment.builder()
-                .userId(userFound)
-                .postId(postFound)
-                .content(commentDto.getComment())
-                .build();
-
-        commentRepository.save(comment);
-        return comment;
+//        Post postFound = postRepository.findById(commentDto.getPostId()).get();
+//        User userFound = userRepository.findUserById(commentDto.getUserId()).get();
+//
+//        Comment comment = Comment.builder()
+//                .userId(userFound)
+//                .postId(postFound)
+//                .content(commentDto.getComment())
+//                .build();
+//
+//        commentRepository.save(comment);
+        return null;
     }
 }
