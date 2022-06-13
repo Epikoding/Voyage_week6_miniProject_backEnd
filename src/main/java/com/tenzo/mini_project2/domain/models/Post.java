@@ -36,16 +36,9 @@ public class Post {
     private List<Comment> commentList;
 
     @Column(nullable = false)
-    private Enum position;
+    private String position;
 
-    public enum position {
-        TOP,
-        BOTTOM,
-        LEFT,
-        RIGHT
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY) //LAZY를 이용할 때는 .get을 할때만 조회가 가능. fetch가 없다면 한 번에 다 가져옴.
+    @JoinColumn(name = "user_id")
     private User user;
 }

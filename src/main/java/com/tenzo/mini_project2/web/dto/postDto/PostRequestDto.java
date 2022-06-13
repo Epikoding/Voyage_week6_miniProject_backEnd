@@ -9,12 +9,6 @@ public class PostRequestDto {
     private String content;
     private String imgUrl;
     private String tags;
-    private Enum position;
+    private String position;
 
-    public enum position {
-        TOP,
-        BOTTOM,
-        LEFT,
-        RIGHT
-    }
 }

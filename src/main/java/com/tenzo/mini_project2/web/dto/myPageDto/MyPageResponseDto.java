@@ -13,11 +13,6 @@ public class MyPageResponseDto {
     private String title;
     private String contents;
     private String imgUrl;
-    private Enum position;
-    public enum position {
-        TOP,
-        BOTTOM,
-        LEFT,
-        RIGHT
-    }
+    private String position;
+
 }

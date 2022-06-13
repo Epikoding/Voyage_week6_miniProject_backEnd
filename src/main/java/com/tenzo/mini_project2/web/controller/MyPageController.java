@@ -1,10 +1,13 @@
 package com.tenzo.mini_project2.web.controller;
 
 import com.tenzo.mini_project2.domain.respository.PostRepository;
+import com.tenzo.mini_project2.security.UserDetailsImpl;
 import com.tenzo.mini_project2.web.dto.myPageDto.MyPageRequestDto;
 import com.tenzo.mini_project2.web.dto.myPageDto.MyPageResponseDto;
 import com.tenzo.mini_project2.web.service.MyPageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,18 +21,18 @@ public class MyPageController {
         this.myPageService = myPageService;
     }
 
-    @GetMapping("/post/{id}")
-    public List<MyPageResponseDto> showMyPage(@PathVariable Long id) {
-        return myPageService.showMyPage(id);
+    @GetMapping("/selectMyPage/{id}")
+    public List<MyPageResponseDto> showMyPage(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return myPageService.showMyPage(id, userDetails);
     }
 
-    @PutMapping("/post/{id}")
-    public Long editMyPost(@PathVariable Long id, @RequestBody MyPageRequestDto myPageRequestDto) {
-        return myPageService.update(id, myPageRequestDto);
+    @PutMapping("/updateMyPage/{id}")
+    public ResponseEntity<?> editMyPost(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestBody MyPageRequestDto myPageRequestDto) {
+        return myPageService.update(userDetails, myPageRequestDto);
     }
 
-    @DeleteMapping("/post/{id}")
-    public Long deletePost(@PathVariable Long id, @RequestBody MyPageRequestDto myPageRequestDto) {
-        return myPageService.delete(id, myPageRequestDto);
+    @DeleteMapping("/deleteMyPage/{id}")
+    public ResponseEntity<?> deletePost(@PathVariable Long postId, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return myPageService.delete(postId, userDetails);
     }
 }

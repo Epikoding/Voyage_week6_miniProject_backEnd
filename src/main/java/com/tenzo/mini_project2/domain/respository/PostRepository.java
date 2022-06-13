@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PostRepository extends JpaRepository<Post,Long> {
-    List<Post> findAllById(Long id);
+    List<Post> findAllByUser(User user);
 
     Optional<Post> findByIdAndUser(Long userId, User user);
 }
