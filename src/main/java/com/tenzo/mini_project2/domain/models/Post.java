@@ -1,22 +1,28 @@
 package com.tenzo.mini_project2.domain.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Post {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private Long id;
 
     @Column(nullable = false)
-    private String title;
+    private String nickName;
 
     @Column(nullable = false)
-    private String nickName;
+    private String title;
 
     @Column(nullable = false)
     private String imgUrl;
@@ -24,12 +30,21 @@ public class Post {
     @Column(nullable = false)
     private String tags;
 
-//    @OneToMany(mappedBy = "post")
-//    @JoinColumn(nullable = true)
-//    private List<Comment> commentList;
+    @OneToMany(mappedBy = "post")
+    @JoinColumn(name = "comments", nullable = false)
+    private List<Comment> commentList;
 
     @Column(nullable = false)
-    private String position;
-    // FIXME: 2022/06/11
-    // enum 처리할 것
+    private Enum position;
+
+    public enum position {
+        TOP,
+        BOTTOM,
+        LEFT,
+        RIGHT
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 }

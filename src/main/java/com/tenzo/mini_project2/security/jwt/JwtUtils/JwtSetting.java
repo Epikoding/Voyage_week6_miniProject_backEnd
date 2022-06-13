@@ -1,4 +1,4 @@
-package com.tenzo.mini_project2.security.jwt;
+package com.tenzo.mini_project2.security.jwt.JwtUtils;
 
 public enum JwtSetting {
 
@@ -13,20 +13,20 @@ public enum JwtSetting {
     JwtSetting( String setting) {
         this.setting = setting;
     }
-    public String getSetting(){
+    String getSetting(){
         return setting;
     }
 
     // 유효시간
-    public enum ExpireTime{
-        ACCESS_TOKEN_EXPIRE_TIME( 30 * 60 * 1000L),// 30분
-        REFRESH_TOKEN_EXPIRE_TIME(7 * 24 * 60 * 60 * 1000L);//7일
+    enum ExpireTime{
+        ACCESS_TOKEN_EXPIRE_TIME( 30 * 60 * 1000L),
+        REFRESH_TOKEN_EXPIRE_TIME(7 * 24 * 60 * 60 * 1000L);
 
         private final Long ExpireTime;
         ExpireTime(Long expireTime){
             this.ExpireTime = expireTime;
         }
-        public Long getExpireTime(){
+        Long getExpireTime(){
             return this.ExpireTime;
         }
     }

@@ -1,9 +1,9 @@
-package com.tenzo.mini_project2.web.dto;
+package com.tenzo.mini_project2.web.dto.userDto;
 
 import lombok.Getter;
 
 @Getter
-public class UserDto {
+public class UserRequestDto {
     private Long id;
     private String email;
     private String password;
