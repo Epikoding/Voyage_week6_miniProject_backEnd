@@ -3,9 +3,13 @@ package com.tenzo.mini_project2.web.service;
 
 import com.tenzo.mini_project2.domain.models.Post;
 import com.tenzo.mini_project2.domain.respository.PostRepository;
+import com.tenzo.mini_project2.security.UserDetailsImpl;
 import com.tenzo.mini_project2.web.dto.myPageDto.MyPageRequestDto;
 import com.tenzo.mini_project2.web.dto.myPageDto.MyPageResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -21,10 +25,10 @@ public class MyPageService {
         this.postRepository = postRepository;
     }
 
-    public List<MyPageResponseDto> showMyPage(Long id) {
+    public List<MyPageResponseDto> showMyPage(Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         List<MyPageResponseDto> myPageResponseDtoArrayList = new ArrayList<>();
 
-        List<Post> postList = postRepository.findAllById(id);
+        List<Post> postList = postRepository.findAllByUser(userDetails.getUser());
         for (Post post : postList) {
             MyPageResponseDto myPageResponseDto = MyPageResponseDto.builder()
                     .postId(post.getId())
@@ -36,28 +40,28 @@ public class MyPageService {
         }
         return myPageResponseDtoArrayList;
     }
-
+// ↑ projection으로 다시 짜보기(시간되면)
     @Transactional
-// FIXME: 2022/06/13 예외처리만 하면 될 거 같음.
-    public Long update(Long id, MyPageRequestDto myPageRequestDto) {
-//        // FIXME: 2022/06/13 authe, princi  사용해보기.
-//        Post postFoundInDb = postRepository.findByIdAndUser(id, myPageRequestDto.getPostId());
-//        postFoundInDb = Post.builder()
-//                .title(myPageRequestDto.getTitle())
-//                .tags(myPageRequestDto.getTag())
-//                // FIXME: 2022/06/12 enum 이거 어떻게 하는 지 몰라서 넣어두기만 함. 맞는지 안 맞는지 불확실.
-//                .position(myPageRequestDto.getPosition())
-//                .build();
-//
-//        postRepository.save(postFoundInDb);
+    public ResponseEntity<?> update(@AuthenticationPrincipal UserDetailsImpl userDetails, MyPageRequestDto myPageRequestDto) {
+        Post postFoundInDb = postRepository.findByIdAndUser(myPageRequestDto.getPostId(), userDetails.getUser()).orElseThrow(
+                () -> new IllegalArgumentException("수정 권한이 없습니다."));
 
-        return id;
+        postFoundInDb = Post.builder()
+                .title(myPageRequestDto.getTitle())
+                .tags(myPageRequestDto.getTag())
+                .position(myPageRequestDto.getPosition())
+                .build();
+
+        return new ResponseEntity<>(postRepository.save(postFoundInDb), HttpStatus.OK);
     }
 
-    public Long delete(Long id, MyPageRequestDto myPageRequestDto) {
-//        // FIXME: 2022/06/13 authe, princi  사용해보기.
-//        Post postFoundInDb = postRepository.findPostByIdAndPostId(id, myPageRequestDto.getPostId());
-//        postRepository.delete(postFoundInDb);
-        return id;
+    public ResponseEntity<?> delete(Long postId, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        Post postFoundInDb = postRepository.findByIdAndUser(postId, userDetails.getUser()).orElseThrow(
+                () -> new IllegalArgumentException("삭제 권한이 없습니다."));
+
+        postRepository.delete(postFoundInDb);
+
+        return new ResponseEntity<>("삭제되었습니다.", HttpStatus.OK);
+//        ???????????????????????????????????????????????????????????????
     }
 }
