@@ -90,7 +90,7 @@ public class JwtTokenProvider {
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_TYPE)) {
             return bearerToken.substring(BEARER_TYPE.length(),bearerToken.length());
         }
-        return null;
+        throw new IllegalArgumentException("로그인 해주세요!.");
     }
 
     public RefreshTokenInfo resolveRefreshToken(HttpServletRequest request) {
