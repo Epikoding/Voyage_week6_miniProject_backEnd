@@ -10,10 +10,12 @@ import javax.persistence.Id;
 
 @Getter
 @Setter
-@AllArgsConstructor
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class SignupRequestDto {
     private String nickname;
     private String email;
     private String password;
+
 }
