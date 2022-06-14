@@ -32,7 +32,7 @@ public class Post {
     private String tags;
 
     @OneToMany
-    @JoinColumn(name = "comments", nullable = false)
+    @JoinColumn(name = "comments")
     private List<Comment> commentList;
 
     @Column(nullable = false)

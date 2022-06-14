@@ -53,7 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 // api 요청 접근허용
                 .antMatchers("/user/**").permitAll()
-                .antMatchers("/h2-console").permitAll()
+                .antMatchers("/h2-console/**").permitAll()
                 .antMatchers(
                         "/swagger-ui/**"
                         ,"/swagger-resources/**"

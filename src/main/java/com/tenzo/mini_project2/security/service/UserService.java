@@ -9,6 +9,7 @@ import com.tenzo.mini_project2.security.jwt.JwtTokenProvider;
 import com.tenzo.mini_project2.security.model.User;
 import com.tenzo.mini_project2.security.repository.UserRepository;
 import com.tenzo.mini_project2.security.UserDetailsImpl;
+import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,7 @@ import org.springframework.util.ObjectUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -61,7 +63,9 @@ public class UserService {
     }
 
     public void reIssuance(UserDetailsImpl userDetails, HttpServletRequest request, HttpServletResponse response) {
+        String accessToken = jwtTokenProvider.resolveToken(request);
         RefreshTokenInfo tokenInfo = jwtTokenProvider.resolveRefreshToken(request);
+        if(jwtTokenProvider.getExpiration(accessToken)<1)return;
         // refresh 토큰 검증
         if (!jwtTokenProvider.validateToken(tokenInfo.getREFRESH_TOKEN())) {
             throw new RuntimeException("Refresh Token 정보가 일치하지 않습니다.");
@@ -116,4 +120,5 @@ public class UserService {
         response.addHeader("RefreshToken",BEARER_TYPE+" "+headerResponseDto.getREFRESH_TOKEN());
         response.addHeader("RefreshTokenExpirationTime", String.valueOf(headerResponseDto.getRefreshTokenExpirationTime()));
     }
+
 }
