@@ -50,7 +50,10 @@ public class UserService {
 
     // 회원가입
     public ResponseEntity<?> signup(SignupRequestDto dto) {
-        if (userRepository.existsByEmail(dto.getEmail())) {
+
+        if(dto== null){
+            throw new IllegalArgumentException("회원가입 실패");
+        }else if (userRepository.existsByEmail(dto.getEmail())) {
             throw new IllegalArgumentException("아이디가 존재합니다.");
         } else if (userRepository.existsByNickname(dto.getNickname())) {
             throw new IllegalArgumentException("닉네임이 존재합니다.");
