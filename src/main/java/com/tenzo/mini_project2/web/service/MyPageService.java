@@ -43,15 +43,11 @@ public class MyPageService {
 // ↑ projection으로 다시 짜보기(시간되면)
     @Transactional
     public ResponseEntity<?> update(@AuthenticationPrincipal UserDetailsImpl userDetails, MyPageRequestDto myPageRequestDto) {
-        Post postFoundInDb = postRepository.findByIdAndUser(myPageRequestDto.getPostId(), userDetails.getUser()).orElseThrow(
-                () -> new IllegalArgumentException("수정 권한이 없습니다."));
 
-        postFoundInDb = Post.builder()
-                .title(myPageRequestDto.getTitle())
-                .tags(myPageRequestDto.getTag())
-                .position(myPageRequestDto.getPosition())
-                .build();
-
+        Post postFoundInDb =  postRepository.findByIdAndUser(myPageRequestDto.getPostId(), userDetails.getUser()).orElseThrow(
+                () -> new IllegalArgumentException("수정권한이 없습니다.")
+        );
+        postFoundInDb.update(myPageRequestDto);
         return new ResponseEntity<>(postRepository.save(postFoundInDb), HttpStatus.OK);
     }
 

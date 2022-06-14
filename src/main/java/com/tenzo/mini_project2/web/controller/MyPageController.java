@@ -26,13 +26,13 @@ public class MyPageController {
         return myPageService.showMyPage(id, userDetails);
     }
 
-    @PutMapping("/updateMyPage/{id}")
+    @PutMapping("/updateMyPage")
     public ResponseEntity<?> editMyPost(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestBody MyPageRequestDto myPageRequestDto) {
         return myPageService.update(userDetails, myPageRequestDto);
     }
 
     @DeleteMapping("/deleteMyPage/{id}")
-    public ResponseEntity<?> deletePost(@PathVariable Long postId, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        return myPageService.delete(postId, userDetails);
+    public ResponseEntity<?> deletePost(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return myPageService.delete(id, userDetails);
     }
 }
