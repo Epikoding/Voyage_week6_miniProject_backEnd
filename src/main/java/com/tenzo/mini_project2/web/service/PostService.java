@@ -46,7 +46,7 @@ public class PostService {
 
         Comment comment = Comment.builder()
                 .userId(userDetails.getUser())
-                .postId(postFound)
+                .postId(postFound)    // Lombok 라이브러리
                 .content(commentDto.getComment())
                 .build();
 

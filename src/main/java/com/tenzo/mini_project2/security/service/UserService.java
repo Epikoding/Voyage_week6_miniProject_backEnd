@@ -1,6 +1,7 @@
 package com.tenzo.mini_project2.security.service;
 
 
+import com.tenzo.mini_project2.security.UserDetailsImpl;
 import com.tenzo.mini_project2.security.dto.HeaderResponseDto;
 import com.tenzo.mini_project2.security.dto.LoginRequestDto;
 import com.tenzo.mini_project2.security.dto.RefreshTokenInfo;
@@ -8,8 +9,6 @@ import com.tenzo.mini_project2.security.dto.SignupRequestDto;
 import com.tenzo.mini_project2.security.jwt.JwtTokenProvider;
 import com.tenzo.mini_project2.security.model.User;
 import com.tenzo.mini_project2.security.repository.UserRepository;
-import com.tenzo.mini_project2.security.UserDetailsImpl;
-import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
@@ -22,7 +21,6 @@ import org.springframework.util.ObjectUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -47,7 +45,7 @@ public class UserService {
         }
         HeaderResponseDto headerResponseDto = jwtTokenProvider.createToken(user.getEmail());
         setRedisTemplate(user.getEmail(), headerResponseDto.getREFRESH_TOKEN(), headerResponseDto.getRefreshTokenExpirationTime());
-        addMultiHeader(response,headerResponseDto);
+        addMultiHeader(response, headerResponseDto);
     }
 
     // 회원가입
@@ -65,7 +63,7 @@ public class UserService {
     public void reIssuance(UserDetailsImpl userDetails, HttpServletRequest request, HttpServletResponse response) {
         String accessToken = jwtTokenProvider.resolveToken(request);
         RefreshTokenInfo tokenInfo = jwtTokenProvider.resolveRefreshToken(request);
-        if(jwtTokenProvider.getExpiration(accessToken)<1)return;
+        if (jwtTokenProvider.getExpiration(accessToken) < 1) return;
         // refresh 토큰 검증
         if (!jwtTokenProvider.validateToken(tokenInfo.getREFRESH_TOKEN())) {
             throw new RuntimeException("Refresh Token 정보가 일치하지 않습니다.");
@@ -75,13 +73,13 @@ public class UserService {
         String refreshToken = (String) redisTemplate.opsForValue().get("RT:" + userDetails.getUsername());
         if (ObjectUtils.isEmpty(refreshToken)) {
             throw new RuntimeException("잘못된 요청입니다.");
-        } else if (refreshToken.equals(tokenInfo.getREFRESH_TOKEN())){
+        } else if (refreshToken.equals(tokenInfo.getREFRESH_TOKEN())) {
             throw new RuntimeException("Refresh Token 정보가 일치하지 않습니다.");
         }
 
         HeaderResponseDto headerDto = jwtTokenProvider.createToken(userDetails.getUsername());
-        setRedisTemplate(userDetails.getUsername(), tokenInfo.getREFRESH_TOKEN(),tokenInfo.getRefreshTokenExpirationTime());
-        addMultiHeader(response,headerDto);
+        setRedisTemplate(userDetails.getUsername(), tokenInfo.getREFRESH_TOKEN(), tokenInfo.getRefreshTokenExpirationTime());
+        addMultiHeader(response, headerDto);
     }
 
 
@@ -89,7 +87,7 @@ public class UserService {
         // 1. Access Token 검증
         String token = jwtTokenProvider.resolveToken(request);
         if (!jwtTokenProvider.validateToken(token)) {
-            throw  new RuntimeException("잘못된 요청입니다.");
+            throw new RuntimeException("잘못된 요청입니다.");
         }
 
         // 2. Access Token 에서 User email 을 가져옵니다.
@@ -101,13 +99,14 @@ public class UserService {
             redisTemplate.delete("RT:" + authentication.getName());
         }
 
-       //4. logout accessToken manage
+        //4. logout accessToken manage
         Long expiration = jwtTokenProvider.getExpiration(token);
         redisTemplate.opsForValue()
                 .set(token, "logout", expiration, TimeUnit.MILLISECONDS);
 
         return new ResponseEntity<>("로그아웃 되었습니다.", HttpStatus.OK);
     }
+
     // refreshToken store
     public void setRedisTemplate(String username, String refreshToken, Long refreshTokenExpirationTime) {
         redisTemplate.opsForValue()
@@ -115,9 +114,9 @@ public class UserService {
     }
 
     //tokens add header
-    public void addMultiHeader(HttpServletResponse response, HeaderResponseDto headerResponseDto){
-        response.addHeader(AUTHORIZATION_HEADER,BEARER_TYPE+" "+headerResponseDto.getACCESS_TOKEN());
-        response.addHeader("RefreshToken",BEARER_TYPE+" "+headerResponseDto.getREFRESH_TOKEN());
+    public void addMultiHeader(HttpServletResponse response, HeaderResponseDto headerResponseDto) {
+        response.addHeader(AUTHORIZATION_HEADER, BEARER_TYPE + " " + headerResponseDto.getACCESS_TOKEN());
+        response.addHeader("RefreshToken", BEARER_TYPE + " " + headerResponseDto.getREFRESH_TOKEN());
         response.addHeader("RefreshTokenExpirationTime", String.valueOf(headerResponseDto.getRefreshTokenExpirationTime()));
     }
 
