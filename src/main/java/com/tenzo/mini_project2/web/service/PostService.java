@@ -31,8 +31,10 @@ public class PostService {
                 .user(userDetails.getUser())
                 .title(postRequestDto.getTitle())
                 .imgUrl(postRequestDto.getImgUrl())
+                .nickName(userDetails.getUser().getNickname())
                 .tags(postRequestDto.getTags())
                 .position(postRequestDto.getPosition())
+                .content(postRequestDto.getContent())
                 .build();
 
         return new ResponseEntity<>(postRepository.save(post), HttpStatus.OK);

@@ -33,7 +33,6 @@ public class JwtTokenProvider {
     private static final String AUTHORIZATION_HEADER = "Authorization";
     private static final String REFRESH_HEADER = "RefreshToken";
     private static final String BEARER_TYPE = "Bearer";
-    private static final String REFRESH_EXPIRE = "RefreshTokenExpirationTime";
 
     // secretKey 와 같은 민감정보는 숨기는 것이 좋다. (이것은 연습이라서 노출함)
     @Value("${jwt.secret}")
@@ -96,7 +95,7 @@ public class JwtTokenProvider {
 
     public RefreshTokenInfo resolveRefreshToken(HttpServletRequest request) {
         String bearerToken = request.getHeader(REFRESH_HEADER);
-        Long expire = Long.valueOf(request.getHeader(REFRESH_EXPIRE));
+        Long expire = getRefreshExpiration(bearerToken);
 
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_TYPE)) {
             return RefreshTokenInfo.builder()
@@ -122,6 +121,11 @@ public class JwtTokenProvider {
         // 현재 시간
         Long now = new Date().getTime();
         return (expiration.getTime() - now);
+    }
+    public Long getRefreshExpiration(String refreshToken) {
+        // accessToken 남은 유효시간
+        Date expiration = Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(refreshToken).getBody().getExpiration();
+        return expiration.getTime();
     }
 
 }

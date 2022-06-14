@@ -118,7 +118,6 @@ public class UserService {
     public void addMultiHeader(HttpServletResponse response, HeaderResponseDto headerResponseDto){
         response.addHeader(AUTHORIZATION_HEADER,BEARER_TYPE+" "+headerResponseDto.getACCESS_TOKEN());
         response.addHeader("RefreshToken",BEARER_TYPE+" "+headerResponseDto.getREFRESH_TOKEN());
-        response.addHeader("RefreshTokenExpirationTime", String.valueOf(headerResponseDto.getRefreshTokenExpirationTime()));
     }
 
 }

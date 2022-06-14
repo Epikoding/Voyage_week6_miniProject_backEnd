@@ -4,10 +4,9 @@ import lombok.Getter;
 
 @Getter
 public class MyPageRequestDto {
-    private Long userId;
     private Long postId;
     private String title;
-    private String contents;
-    private String tag;
+    private String content;
+    private String tags;
     private String position;
 }
