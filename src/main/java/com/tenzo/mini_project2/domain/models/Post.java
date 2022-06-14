@@ -30,7 +30,8 @@ public class Post {
     private String imgUrl;
 
     @Column(nullable = false)
-    private String tags;
+    @ElementCollection
+    private List<String> tagList;
 
     //말풍선 안에 문구
     @Column(nullable = false)
@@ -50,7 +51,7 @@ public class Post {
     public void update(MyPageRequestDto dto) {
 
         this.title = dto.getTitle();
-        this.tags = dto.getTags();
+        this.tagList = dto.getTags();
         this.content = dto.getContent();
         this.position = dto.getPosition();
     }

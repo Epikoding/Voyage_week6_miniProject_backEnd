@@ -18,7 +18,7 @@ public class RedisTest {
         .imgUrl("TEST")
         .position("top")
         .title("test")
-        .tags("#TEST")
+        .tagList("#TEST")
         .nickName("test")
         .build();
 

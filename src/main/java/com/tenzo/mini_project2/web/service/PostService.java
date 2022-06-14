@@ -32,7 +32,7 @@ public class PostService {
                 .title(postRequestDto.getTitle())
                 .imgUrl(postRequestDto.getImgUrl())
                 .nickName(userDetails.getUser().getNickname())
-                .tags(postRequestDto.getTags())
+                .tagList(postRequestDto.getTagList())
                 .position(postRequestDto.getPosition())
                 .content(postRequestDto.getContent())
                 .build();
