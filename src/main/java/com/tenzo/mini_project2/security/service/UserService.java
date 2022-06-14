@@ -68,15 +68,15 @@ public class UserService {
         RefreshTokenInfo tokenInfo = jwtTokenProvider.resolveRefreshToken(request);
         // refresh 토큰 검증
         if (!jwtTokenProvider.validateToken(tokenInfo.getREFRESH_TOKEN())) {
-            throw new RuntimeException("Refresh Token 정보가 일치하지 않습니다.");
+            throw new RuntimeException("다시 로그인 해주세요.");
         }
 
         // redis 에서 저장된 refresh 가져오기
         String refreshToken = (String) redisTemplate.opsForValue().get("RT:" + userDetails.getUsername());
         if (ObjectUtils.isEmpty(refreshToken)) {
             throw new RuntimeException("잘못된 요청입니다.");
-        } else if (refreshToken.equals(tokenInfo.getREFRESH_TOKEN())) {
-            throw new RuntimeException("Refresh Token 정보가 일치하지 않습니다.");
+        } else if (!refreshToken.equals(tokenInfo.getREFRESH_TOKEN())) {
+            throw new RuntimeException("다시 로그인 해주세요.");
         }
 
         HeaderResponseDto headerDto = jwtTokenProvider.createToken(userDetails.getUsername());
