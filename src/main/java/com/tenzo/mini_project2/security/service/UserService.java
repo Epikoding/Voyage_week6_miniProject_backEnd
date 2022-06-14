@@ -65,6 +65,8 @@ public class UserService {
 
     public void reIssuance(UserDetailsImpl userDetails, HttpServletRequest request, HttpServletResponse response) {
 
+        String token = jwtTokenProvider.resolveToken(request);
+        if(!(jwtTokenProvider.getExpiration(token)<=180000))return;
         RefreshTokenInfo tokenInfo = jwtTokenProvider.resolveRefreshToken(request);
         // refresh 토큰 검증
         if (!jwtTokenProvider.validateToken(tokenInfo.getREFRESH_TOKEN())) {
@@ -86,6 +88,10 @@ public class UserService {
 
 
     public ResponseEntity<?> logout(HttpServletRequest request) {
+        logoutProcess(request);
+        return new ResponseEntity<>("로그아웃 되었습니다.", HttpStatus.OK);
+    }
+    public void logoutProcess(HttpServletRequest request){
         // 1. Access Token 검증
         String token = jwtTokenProvider.resolveToken(request);
         if (!jwtTokenProvider.validateToken(token)) {
@@ -105,10 +111,7 @@ public class UserService {
         Long expiration = jwtTokenProvider.getExpiration(token);
         redisTemplate.opsForValue()
                 .set(token, "logout", expiration, TimeUnit.MILLISECONDS);
-
-        return new ResponseEntity<>("로그아웃 되었습니다.", HttpStatus.OK);
     }
-
     // refreshToken store
     public void setRedisTemplate(String username, String refreshToken, Long refreshTokenExpirationTime) {
         redisTemplate.opsForValue()

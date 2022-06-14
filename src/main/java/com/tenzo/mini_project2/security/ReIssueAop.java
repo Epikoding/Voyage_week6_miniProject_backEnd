@@ -1,6 +1,7 @@
 package com.tenzo.mini_project2.security;
 
 
+import com.tenzo.mini_project2.security.jwt.JwtTokenProvider;
 import com.tenzo.mini_project2.security.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -18,16 +19,15 @@ import javax.servlet.http.HttpServletResponse;
 public class ReIssueAop {
 
     private final UserService service;
+    private final JwtTokenProvider jwtTokenProvider;
     private final HttpServletResponse response;
     private final HttpServletRequest request;
     @Pointcut("execution(public * com.tenzo.mini_project2.web.controller..*(..))")
-
     public void webPackagePointcut() {
     }
 
     @Around("webPackagePointcut()")
     public Object reIssueAdaptor(ProceedingJoinPoint joinPoint) throws Throwable {
-
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             UserDetailsImpl userDetails = (UserDetailsImpl) auth.getPrincipal();
             service.reIssuance(userDetails, request, response);

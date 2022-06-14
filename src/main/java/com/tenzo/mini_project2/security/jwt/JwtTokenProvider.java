@@ -11,6 +11,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -42,7 +43,6 @@ public class JwtTokenProvider {
     private static final long TOKEN_VALID_TIME = 1000L * 60 * 5;
 
     private final UserDetailsService userDetailsService;
-
     // 객체 초기화, secretKey 를 Base64로 인코딩한다.
     @PostConstruct
     protected void init() {
@@ -112,7 +112,7 @@ public class JwtTokenProvider {
             Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(jwtToken);
             return !claims.getBody().getExpiration().before(new Date());
         } catch (Exception e) {
-            return false;
+            throw new IllegalArgumentException("다시 로그인 해주세요!");
         }
     }
     public Long getExpiration(String accessToken) {

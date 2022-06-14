@@ -1,9 +1,12 @@
 package com.tenzo.mini_project2.security.config;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tenzo.mini_project2.security.jwt.JwtAuthenticationFilter;
 
+import com.tenzo.mini_project2.security.jwt.JwtExceptionFilter;
 import com.tenzo.mini_project2.security.jwt.JwtTokenProvider;
+import com.tenzo.mini_project2.security.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -21,7 +24,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity // 스프링 Security 지원을 가능하게 함
@@ -37,6 +39,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    @Bean
+    public ObjectMapper objectMapper(){
+        return new ObjectMapper();
+    }
     // 정적 자원에 대해서는 Security 설정을 적용하지 않음.
     @Override
     public void configure(WebSecurity web) {
@@ -57,12 +63,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/h2-console/**").permitAll()
                 .antMatchers(
                         "/swagger-ui/**"
-                        ,"/swagger-resources/**"
-                        ,"/v3/api-docs").permitAll()
+                        , "/swagger-resources/**"
+                        , "/v3/api-docs").permitAll()
                 // 그 외 모든 요청은 인증과정 필요
                 .anyRequest().authenticated()
                 .and()
-                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider,redisTemplate), UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider, redisTemplate), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new JwtExceptionFilter(objectMapper(),redisTemplate,jwtTokenProvider), JwtAuthenticationFilter.class);
+
 
         http.cors().configurationSource(corsConfigurationSource());
     }
