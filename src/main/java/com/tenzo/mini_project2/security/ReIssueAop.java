@@ -27,14 +27,11 @@ public class ReIssueAop {
 
     @Around("webPackagePointcut()")
     public Object reIssueAdaptor(ProceedingJoinPoint joinPoint) throws Throwable {
-        try {
-            return joinPoint.proceed();
-        } finally {
+
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             UserDetailsImpl userDetails = (UserDetailsImpl) auth.getPrincipal();
             service.reIssuance(userDetails, request, response);
-        }
-
+            return joinPoint.proceed();
 
     }
 

@@ -51,9 +51,9 @@ public class UserService {
     // 회원가입
     public ResponseEntity<?> signup(SignupRequestDto dto) {
 
-        if(dto== null){
+        if (dto == null) {
             throw new IllegalArgumentException("회원가입 실패");
-        }else if (userRepository.existsByEmail(dto.getEmail())) {
+        } else if (userRepository.existsByEmail(dto.getEmail())) {
             throw new IllegalArgumentException("아이디가 존재합니다.");
         } else if (userRepository.existsByNickname(dto.getNickname())) {
             throw new IllegalArgumentException("닉네임이 존재합니다.");
@@ -64,9 +64,8 @@ public class UserService {
     }
 
     public void reIssuance(UserDetailsImpl userDetails, HttpServletRequest request, HttpServletResponse response) {
-        String accessToken = jwtTokenProvider.resolveToken(request);
+
         RefreshTokenInfo tokenInfo = jwtTokenProvider.resolveRefreshToken(request);
-        if (jwtTokenProvider.getExpiration(accessToken) < 1) return;
         // refresh 토큰 검증
         if (!jwtTokenProvider.validateToken(tokenInfo.getREFRESH_TOKEN())) {
             throw new RuntimeException("Refresh Token 정보가 일치하지 않습니다.");
