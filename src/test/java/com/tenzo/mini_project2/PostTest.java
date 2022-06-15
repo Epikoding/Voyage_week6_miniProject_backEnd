@@ -87,8 +87,6 @@ public class PostTest {
         assertNotNull(userRequestDto.nickName);
 
 
-        // 음식점 등록 성공 시, registeredRestaurant 에 할당
-        registeredRestaurant = restaurantResponse;
     }
 
     @Getter

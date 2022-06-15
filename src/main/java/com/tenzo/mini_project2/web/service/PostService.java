@@ -24,6 +24,7 @@ public class PostService {
     private final UserRepository userRepository;
 
 
+
     @Transactional
     // TODO: 2022/06/13 아래 방식이 맞는지 확인 받아야함.
     public ResponseEntity<?> enrollMeme(@AuthenticationPrincipal UserDetailsImpl userDetails, PostRequestDto postRequestDto) {

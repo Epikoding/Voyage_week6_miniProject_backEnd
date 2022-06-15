@@ -1,5 +1,6 @@
 package com.tenzo.mini_project2.domain.models;
 
+import com.tenzo.mini_project2.security.model.Timestamped;
 import com.tenzo.mini_project2.security.model.User;
 import com.tenzo.mini_project2.web.dto.myPageDto.MyPageRequestDto;
 import lombok.AllArgsConstructor;
@@ -15,7 +16,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Post {
+public class Post extends Timestamped {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private Long id;
