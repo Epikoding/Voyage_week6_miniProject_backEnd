@@ -33,7 +33,11 @@ public class PostController {
     public ResponseEntity<?> postMeme(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestBody PostRequestDto postRequestDto){
         return postService.enrollMeme(userDetails, postRequestDto);
     }
-
+    //댓글 조회
+    @GetMapping("/getCommentsByPostId")
+    public ResponseEntity<?>getCommentsByPostId(@RequestParam Long postId){
+        return postService.getCommentsById(postId);
+    }
     @PostMapping("/comments")
     public ResponseEntity<?> postComment(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestBody CommentDto commentDto){
         return postService.postComment(userDetails, commentDto);

@@ -12,5 +12,4 @@ import java.util.Optional;
 public interface PostRepository extends JpaRepository<Post,Long>, CustomPostRepository {
     List<Post> findAllByUser(User user);
     Optional<Post> findByIdAndUser(Long postId, User user);
-
 }

@@ -19,6 +19,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -31,10 +32,11 @@ public class PostService {
     private final CommentRepository commentRepository;
     private final UserRepository userRepository;
 
-    public List<Tags>getAllTags(){
+    public List<Tags> getAllTags() {
         return tagRepository.getTags();
     }
-    public List<PostResponseDto>getPostAll(){
+
+    public List<PostResponseDto> getPostAll() {
         List<Post> posts = postRepository.getPosts();
         List<PostResponseDto> results = new LinkedList<>();
         for (Post post : posts) {
@@ -57,28 +59,35 @@ public class PostService {
                 .up_txt(postRequestDto.getUp_txt())
                 .down_txt(postRequestDto.getDown_txt())
                 .tagList(new HashSet<>(tagRepository.saveAll(resolveTags(postRequestDto))))
+                .commentList(new LinkedList<>())
                 .build();
         postRepository.save(post);
         return new ResponseEntity<>("등록 완료", HttpStatus.OK);
         // RestControllerAdvice 이런게 있다....
     }
 
+    public ResponseEntity<?> getCommentsById(Long postId) {
+        return new ResponseEntity<>(postRepository.getComments(postId), HttpStatus.OK);
+    }
 
     @Transactional
     public ResponseEntity<?> postComment(@AuthenticationPrincipal UserDetailsImpl userDetails, CommentDto commentDto) {
         Post postFound = postRepository.findById(commentDto.getPostId()).orElseThrow(
                 () -> new IllegalArgumentException("코멘트를 작성할 수 없는 게시글입니다.")
         );
+        List<Comment> commentList = postFound.getCommentList();
 
         Comment comment = Comment.builder()
                 .userId(userDetails.getUser())
-                .postId(postFound)    // Lombok 라이브러리
                 .content(commentDto.getComment())
                 .build();
 
-        return new ResponseEntity<>(commentRepository.save(comment), HttpStatus.OK);
-    }
+        commentList.add(commentRepository.save(comment));
+        postFound.setCommentList(commentList);
 
+        postRepository.save(postFound);
+        return new ResponseEntity<>("등록 완료", HttpStatus.OK);
+    }
 
 
     public List<Tags> resolveTags(PostRequestDto postRequestDto) {

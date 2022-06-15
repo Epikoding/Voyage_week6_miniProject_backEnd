@@ -27,10 +27,6 @@ public class Comment extends Timestamped {
     @JoinColumn(name = "user_id", nullable = false)
     private User userId;
 
-    @ManyToOne
-    @JoinColumn(name = "post_id", nullable = false)
-    private Post postId;
-
     @Column(nullable = false)
     private String content;
 }

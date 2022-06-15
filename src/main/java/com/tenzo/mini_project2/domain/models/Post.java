@@ -6,6 +6,8 @@ import com.tenzo.mini_project2.web.dto.myPageDto.MyPageRequestDto;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -46,12 +48,13 @@ public class Post extends Timestamped {
 
     @OneToMany
     @JoinColumn(name = "comments")
-    private Set<Comment> commentList;
+    private List<Comment> commentList;
 
 
     @ManyToOne(fetch = FetchType.LAZY) //LAZY를 이용할 때는 .get을 할때만 조회가 가능. fetch가 없다면 한 번에 다 가져옴.
     @JoinColumn(name = "user_id")
     private User user;
+
 
     public void update(MyPageRequestDto dto, Set<Tags>tags) {
 
@@ -63,6 +66,17 @@ public class Post extends Timestamped {
         this.tagList = tags;
 
     }
+
+    public void addComment(Comment comment){
+        this.commentList.add(comment);
+    }
+
+    public void removeComment(Comment comment){
+        this.commentList.remove(comment);
+    }
+
+
+
 
 
 }
