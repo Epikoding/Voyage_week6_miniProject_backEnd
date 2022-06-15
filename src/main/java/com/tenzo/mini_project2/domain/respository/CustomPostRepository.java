@@ -1,7 +1,7 @@
 package com.tenzo.mini_project2.domain.respository;
 
-import com.tenzo.mini_project2.domain.models.Comment;
 import com.tenzo.mini_project2.domain.models.Post;
+import com.tenzo.mini_project2.web.dto.commentDto.CommentsResponseDto;
 
 
 import java.util.List;
@@ -9,5 +9,5 @@ import java.util.List;
 public interface CustomPostRepository {
     List<Post>getPosts();
 
-    List<Comment> getComments(Long postId);
+    List<CommentsResponseDto> getComments(Long postId);
 }

@@ -102,6 +102,7 @@ public class IntegrationTest {
         Comment comment = Comment.builder()
                 .userId(userDetails.getUser())
                 .content(commentDto.getComment())
+                .postId(post1.getId())
                 .build();
 
         commentList.add(commentRepository.save(comment));
@@ -110,7 +111,7 @@ public class IntegrationTest {
         Post save = postRepository.save(post1);
 
 
-        List<Comment> commentss = postRepository.getComments(save.getId());
+        List<CommentsResponseDto> commentss = postRepository.getComments(save.getId());
         List<PostResponseDto> postAll = postService.getPostAll();
     }
 

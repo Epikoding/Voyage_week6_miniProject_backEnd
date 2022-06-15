@@ -8,6 +8,8 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.tenzo.mini_project2.domain.models.Comment;
 import com.tenzo.mini_project2.domain.models.Post;
 import com.tenzo.mini_project2.web.dto.commentDto.CommentsResponseDto;
+import com.tenzo.mini_project2.web.dto.commentDto.QCommentsResponseDto;
+
 import javax.persistence.EntityManager;
 import java.util.List;
 
@@ -39,11 +41,17 @@ public class CustomPostRepositoryImpl implements CustomPostRepository {
     }
 
     @Override
-    public List<Comment> getComments(Long postId) {
+    public List<CommentsResponseDto> getComments(Long postId) {
         return jpaQueryFactory
-                .select(post.commentList)
-                .from(post)
-                .where(post.id.eq(postId))
-                .fetchOne();
+                .select(new QCommentsResponseDto(
+                        comment.id,
+                        comment.userId,
+                        comment.content,
+                        comment.createdAt)
+                )
+                .from(comment)
+                .leftJoin(comment.userId, user)
+                .where(comment.postId.eq(postId))
+                .fetch();
     }
 }

@@ -80,6 +80,7 @@ public class PostService {
         Comment comment = Comment.builder()
                 .userId(userDetails.getUser())
                 .content(commentDto.getComment())
+                .postId(commentDto.getPostId())
                 .build();
 
         commentList.add(commentRepository.save(comment));
