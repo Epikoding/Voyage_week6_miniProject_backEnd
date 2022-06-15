@@ -21,10 +21,10 @@ public class MyPageController {
         this.myPageService = myPageService;
     }
 
-    @GetMapping("/selectMyPage/{id}")
-    public List<MyPageResponseDto> showMyPage(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        return myPageService.showMyPage(id, userDetails);
-    }
+//    @GetMapping("/selectMyPage/{id}")
+//    public List<MyPageResponseDto> showMyPage(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+//        return myPageService.showMyPage(id, userDetails);
+//    }
 
     @PutMapping("/updateMyPage")
     public ResponseEntity<?> editMyPost(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestBody MyPageRequestDto myPageRequestDto) {

@@ -62,6 +62,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/user/**").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
                 .antMatchers("/post/all").permitAll()
+                .antMatchers("/post/allTags").permitAll()
                 .antMatchers(
                         "/swagger-ui/**"
                         , "/swagger-resources/**"

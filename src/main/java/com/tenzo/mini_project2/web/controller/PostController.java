@@ -1,7 +1,5 @@
 package com.tenzo.mini_project2.web.controller;
 
-import com.tenzo.mini_project2.domain.models.Comment;
-import com.tenzo.mini_project2.domain.respository.PostRepository;
 import com.tenzo.mini_project2.security.UserDetailsImpl;
 import com.tenzo.mini_project2.web.dto.commentDto.CommentDto;
 import com.tenzo.mini_project2.web.dto.postDto.PostRequestDto;
@@ -17,12 +15,17 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/post")
 public class PostController {
     private final PostService postService;
-    private final PostRepository repository;
 
     @PermitAll
     @GetMapping("/all")
     public ResponseEntity<?> postAll(){
-        return new ResponseEntity<>(repository.getPosts(), HttpStatus.OK) ;
+        return new ResponseEntity<>(postService.getPostAll(), HttpStatus.OK) ;
+    }
+
+    @PermitAll
+    @GetMapping("/allTags")
+    public ResponseEntity<?> tagsAll(){
+        return new ResponseEntity<>(postService.getAllTags(), HttpStatus.OK) ;
     }
 
 
