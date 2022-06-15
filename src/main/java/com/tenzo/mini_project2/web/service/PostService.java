@@ -19,6 +19,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -55,7 +56,7 @@ public class PostService {
                 .up_layer_value(postRequestDto.getUp_layer_value())
                 .up_txt(postRequestDto.getUp_txt())
                 .down_txt(postRequestDto.getDown_txt())
-                .tagList(tagRepository.saveAll(resolveTags(postRequestDto)))
+                .tagList(new HashSet<>(tagRepository.saveAll(resolveTags(postRequestDto))))
                 .build();
         postRepository.save(post);
         return new ResponseEntity<>("등록 완료", HttpStatus.OK);

@@ -7,6 +7,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -39,20 +40,20 @@ public class Post extends Timestamped {
 
     @OneToMany
     @JoinColumn(name = "tags")
-    private List<Tags> tagList;
+    private Set<Tags> tagList;
 
     //말풍선 안에 문구
 
     @OneToMany
     @JoinColumn(name = "comments")
-    private List<Comment> commentList;
+    private Set<Comment> commentList;
 
 
     @ManyToOne(fetch = FetchType.LAZY) //LAZY를 이용할 때는 .get을 할때만 조회가 가능. fetch가 없다면 한 번에 다 가져옴.
     @JoinColumn(name = "user_id")
     private User user;
 
-    public void update(MyPageRequestDto dto, List<Tags>tags) {
+    public void update(MyPageRequestDto dto, Set<Tags>tags) {
 
         this.title = dto.getTitle();
         this.up_layer_value = dto.getUp_layer_value();

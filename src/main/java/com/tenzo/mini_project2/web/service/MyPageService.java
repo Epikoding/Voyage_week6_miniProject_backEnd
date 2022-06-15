@@ -17,9 +17,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -66,12 +64,12 @@ public class MyPageService {
     }
 
     @Transactional
-    public List<Tags> resolveTags(MyPageRequestDto myPageRequestDto) {
+    public Set<Tags> resolveTags(MyPageRequestDto myPageRequestDto) {
         List<Tags> list = new LinkedList<>();
 
         for (String tag : myPageRequestDto.getTagList()) {
             list.add(new Tags(tag));
         }
-        return tagRepository.saveAll(list);
+        return new HashSet<>(tagRepository.saveAll(list));
     }
 }

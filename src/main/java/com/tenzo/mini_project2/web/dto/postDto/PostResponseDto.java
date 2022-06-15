@@ -5,6 +5,7 @@ import com.tenzo.mini_project2.domain.models.Tags;
 import lombok.Data;
 
 import java.util.List;
+import java.util.Set;
 
 @Data
 public class PostResponseDto {
@@ -16,8 +17,8 @@ public class PostResponseDto {
     private String down_layer_value;
     private String up_txt;
     private String down_txt;
-    private List<Tags> tagList;
-    private String email;
+    private Set<Tags> tagList;
+    private String nickname;
     private int commentCnt;
     //private String nickname;
 
@@ -31,7 +32,7 @@ public class PostResponseDto {
         this.up_txt = post.getUp_txt();
         this.down_txt = post.getDown_txt();
         this.tagList = post.getTagList();
-        this.email = post.getUser().getEmail();
+        this.nickname = post.getUser().getNickname();
         this.commentCnt = post.getCommentList().size();
     }
 }
