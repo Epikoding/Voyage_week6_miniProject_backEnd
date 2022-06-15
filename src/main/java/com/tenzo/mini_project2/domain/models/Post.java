@@ -30,7 +30,7 @@ public class Post extends Timestamped {
     @Column(nullable = false)
     private String imgUrl;
 
-    @Column(nullable = false)
+    @Column
     @ElementCollection
     private List<String> tagList;
 

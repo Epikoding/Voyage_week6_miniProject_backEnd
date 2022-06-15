@@ -39,6 +39,9 @@ public class JwtExceptionFilter extends OncePerRequestFilter {
     public void forceLogout(HttpServletRequest request,HttpServletResponse response) throws IOException {
         try {
             String token = jwtTokenProvider.resolveToken(request);
+            if(token == null){
+                throw new IllegalStateException("다시 로그인 해주세요");
+            }
             String email = jwtTokenProvider.getUserPk(token);
             if (redisTemplate.opsForValue().get("RT:" + email) != null) {
                 // Refresh Token 삭제

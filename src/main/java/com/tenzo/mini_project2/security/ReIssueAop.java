@@ -22,7 +22,7 @@ public class ReIssueAop {
     private final JwtTokenProvider jwtTokenProvider;
     private final HttpServletResponse response;
     private final HttpServletRequest request;
-    @Pointcut("execution(public * com.tenzo.mini_project2.web.controller..*(..))")
+    @Pointcut("execution(public * com.tenzo.mini_project2.web.controller..*.*(..))&& !@target(com.tenzo.mini_project2.web.controller.PermitAll)")
     public void webPackagePointcut() {
     }
 

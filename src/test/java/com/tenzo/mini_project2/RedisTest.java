@@ -9,21 +9,21 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 public class RedisTest {
-
-    @Autowired
-    PostService service;
-    @Test
-    void post() {
-       Post post =  Post.builder()
-        .imgUrl("TEST")
-        .position("top")
-        .title("test")
-        .tagList("#TEST")
-        .nickName("test")
-        .build();
-
-
-}
+//
+//    @Autowired
+//    PostService service;
+//    @Test
+//    void post() {
+//       Post post =  Post.builder()
+//        .imgUrl("TEST")
+//        .position("top")
+//        .title("test")
+//        .tagList("#TEST")
+//        .nickName("test")
+//        .build();
+//
+//
+//}
 
 
 }

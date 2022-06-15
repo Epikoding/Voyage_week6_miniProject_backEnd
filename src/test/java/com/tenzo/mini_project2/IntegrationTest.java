@@ -22,68 +22,68 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class IntegrationTest {
 
-    @Autowired
-    private TestRestTemplate restTemplate;
+//    @Autowired
+//    private TestRestTemplate restTemplate;
+//
+//    private ObjectMapper mapper = new ObjectMapper();
+//    private HttpHeaders headers;
+//
+//    private SignupRequestDto user1 = SignupRequestDto.builder()
+//            .email("test1@naver,com")
+//            .nickname("test1")
+//            .password("123123")
+//            .build();
+//
+//    private SignupRequestDto user2 = SignupRequestDto.builder()
+//            .email("test2@naver,com")
+//            .nickname("test2")
+//            .password("123123")
+//            .build();
+//
+//    private SignupRequestDto user3 = SignupRequestDto.builder()
+//            .email("test3@naver,com")
+//            .nickname("test3")
+//            .password("123123")
+//            .build();
+//
+//
+//    @BeforeEach
+//    public void setup() {
+//        headers = new HttpHeaders();
+//        headers.setContentType(MediaType.APPLICATION_JSON);
+//
+//    }
 
-    private ObjectMapper mapper = new ObjectMapper();
-    private HttpHeaders headers;
-
-    private SignupRequestDto user1 = SignupRequestDto.builder()
-            .email("test1@naver,com")
-            .nickname("test1")
-            .password("123123")
-            .build();
-
-    private SignupRequestDto user2 = SignupRequestDto.builder()
-            .email("test2@naver,com")
-            .nickname("test2")
-            .password("123123")
-            .build();
-
-    private SignupRequestDto user3 = SignupRequestDto.builder()
-            .email("test3@naver,com")
-            .nickname("test3")
-            .password("123123")
-            .build();
-
-
-    @BeforeEach
-    public void setup() {
-        headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-
-    }
-
-    @Nested
-    class signupTest {
-
-        @Test
-        @Order(1)
-        @DisplayName("회원가입 성공")
-        void 회원가입() throws JsonProcessingException {
-
-            //given
-            String payload = mapper.writeValueAsString(user1);
-            HttpEntity<String> request = new HttpEntity<>(payload, headers);
-
-            //when
-            ResponseEntity<User> response = restTemplate.postForEntity(
-                    "/user/signup",
-                    request,
-                    User.class
-            );
-
-            //then
-            assertEquals(HttpStatus.OK, response.getStatusCode());
-            User user = response.getBody();
-            assertNotNull(user);
-            assertTrue(user.getId() > 0);
-            assertEquals(user.getNickname(), user1.getNickname());
-            assertEquals(user.getEmail(), user1.getEmail());
-
-
-
-        }
+//    @Nested
+//    class signupTest {
+//
+//        @Test
+//        @Order(1)
+//        @DisplayName("회원가입 성공")
+//        void 회원가입() throws JsonProcessingException {
+//
+//            //given
+//            String payload = mapper.writeValueAsString(user1);
+//            HttpEntity<String> request = new HttpEntity<>(payload, headers);
+//
+//            //when
+//            ResponseEntity<String> response = restTemplate.postForEntity(
+//                    "/user/signup",
+//                    request,
+//                    User.class
+//            );
+//
+//            //then
+//            assertEquals(HttpStatus.OK, response.getStatusCode());
+//            User user = response.getBody();
+//            assertNotNull(user);
+//            assertTrue(user.getId() > 0);
+//            assertEquals(user.getNickname(), user1.getNickname());
+//            assertEquals(user.getEmail(), user1.getEmail());
+//
+//
+//
+//        }
 
 
 //        @Test
@@ -113,6 +113,6 @@ public class IntegrationTest {
 //    }
 
     }
-}
+
 
 

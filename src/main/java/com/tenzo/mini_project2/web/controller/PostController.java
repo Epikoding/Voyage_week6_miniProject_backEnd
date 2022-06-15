@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.*;
 public class PostController {
     private final PostService postService;
     private final PostRepository repository;
+
+    @PermitAll
     @GetMapping("/all")
     public ResponseEntity<?> postAll(){
         return new ResponseEntity<>(repository.getPosts(), HttpStatus.OK) ;

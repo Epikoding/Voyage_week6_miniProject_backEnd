@@ -1,25 +1,20 @@
 package com.tenzo.mini_project2.security.jwt;
 
 
-import com.tenzo.mini_project2.security.UserDetailsImpl;
+
 import com.tenzo.mini_project2.security.dto.HeaderResponseDto;
 import com.tenzo.mini_project2.security.dto.RefreshTokenInfo;
-import com.tenzo.mini_project2.security.jwt.JwtSetting;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.PostConstruct;
@@ -90,7 +85,7 @@ public class JwtTokenProvider {
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_TYPE)) {
             return bearerToken.substring(BEARER_TYPE.length(),bearerToken.length());
         }
-        throw new IllegalArgumentException("로그인 해주세요!.");
+        return null;
     }
 
     public RefreshTokenInfo resolveRefreshToken(HttpServletRequest request) {
