@@ -39,8 +39,6 @@
   * [💏 **10조 한줄 회고**](#-----10---------)
 
 
-
-
 # ****🎡**** 짤태식이 돌아왔구나 - ****프로젝트 소개****
 
 ![](https://lh3.googleusercontent.com/CTh9C0OcRTuUL7L_OMnzfv1Z44VVAkyo8Vz68jKHUCONnYaE_1jbI4_SeebjLrRzJivfN7zJ9uVOAxdyvH5Hbn2iZzAWY8jHHV30D_e-PDy7COpcXGBa6iXaQIf9ptf7V-f_neU0xWps6mOu6COit4jqy5Td9vbkQXnfqR7Q9TLDFCmQb7xFaYdLfksnm6Ug9ETLif5SdjR35Yi7nIbRQ4_OPQq8rTcqLasOOJ2-qIS8sCU6hn999qqZ2ZQrxr8F46Yh8ujHsqfHDarecyOqKqH6gitF579WDvxd2aNfcPnyP7jOYYK_FQNU5GQ5wjsiighhCRT4pru2NnHJb6Y51cKk1M91hhF_vGXQymv-Q3X4NMvHBJAvZK6_GBGus_cjHtuUGM2T5hvJ_fwsqSgyQZWxnFnpwIbXUQFhvF2W2hUFYUsmXiPbHErCDYGuw2PQnRt7kdGFuLrXFOqyqX7-bbrLMNYAlZTPQ16mXVUbYM1GfLE9jEYx3l1CEJOeEJ723XIiGkxrxTXCvBR3AgwDozM1JPNeqv3oXo42AmRYv2k835GybP5Sdq1CP1qsVhcMlUSz8YZlBNEt8-ngM2QuurndIGLcmv_vbZ3pDrhSG24Vddgsep_nlKewnmCIG-TRp-uWNlZf7NFSBHQ88Io66yaCkifjpNTE1VC6ULnHt-Z4pLcubRaqFSoZO2Ekwxx9DJQLB4_T9XHeE1daesCTHon075h1W4TC2l6hUpkYV8C-FMeviavtWHAjKoL6mzR-uZ9bAlda2CQfTJ7R10AlNGQCmuY0k3T7JA=w1552-h914-no?authuser=0)
