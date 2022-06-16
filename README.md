@@ -1,5 +1,4 @@
 - [****🎡**** 짤태식이 돌아왔구나 - ****프로젝트 소개****](#---------------------------------------)
-  * [![](https://lh3.googleusercontent.com/CTh9C0OcRTuUL7L_OMnzfv1Z44VVAkyo8Vz68jKHUCONnYaE_1jbI4_SeebjLrRzJivfN7zJ9uVOAxdyvH5Hbn2iZzAWY8jHHV30D_e-PDy7COpcXGBa6iXaQIf9ptf7V-f_neU0xWps6mOu6COit4jqy5Td9vbkQXnfqR7Q9TLDFCmQb7xFaYdLfksnm6Ug9ETLif5SdjR35Yi7nIbRQ4_OPQq8rTcqLasOOJ2-qIS8sCU6hn999qqZ2ZQrxr8F46Yh8ujHsqfHDarecyOqKqH6gitF579WDvxd2aNfcPnyP7jOYYK_FQNU5GQ5wjsiighhCRT4pru2NnHJb6Y51cKk1M91hhF_vGXQymv-Q3X4NMvHBJAvZK6_GBGus_cjHtuUGM2T5hvJ_fwsqSgyQZWxnFnpwIbXUQFhvF2W2hUFYUsmXiPbHErCDYGuw2PQnRt7kdGFuLrXFOqyqX7-bbrLMNYAlZTPQ16mXVUbYM1GfLE9jEYx3l1CEJOeEJ723XIiGkxrxTXCvBR3AgwDozM1JPNeqv3oXo42AmRYv2k835GybP5Sdq1CP1qsVhcMlUSz8YZlBNEt8-ngM2QuurndIGLcmv_vbZ3pDrhSG24Vddgsep_nlKewnmCIG-TRp-uWNlZf7NFSBHQ88Io66yaCkifjpNTE1VC6ULnHt-Z4pLcubRaqFSoZO2Ekwxx9DJQLB4_T9XHeE1daesCTHon075h1W4TC2l6hUpkYV8C-FMeviavtWHAjKoL6mzR-uZ9bAlda2CQfTJ7R10AlNGQCmuY0k3T7JA=w1552-h914-no?authuser=0)](#----https---lh3googleusercontentcom-cth9c0ocrtuul7l-omnzfv1z44vvakyo8vz68jkhuconnyae-1jbi4-seebjlrrzjivfn7zj9uvoaxdyvh5hbn2izzawy8jhhv30d-e-pdy7copcxgba6ixaqif9ptf7v-f-neu0xwps6mou6coit4jqy5td9vbkqxnfqr7q9tldfcmqb7xfaydlfksnm6ug9etlif5sdjr35yi7nibrq4-opqq8rtcqlasooj2-qis8scu6hn999qqz2zqrxr8f46yh8ujhsqfhdarecyoqkqh6gitf579wdvxd2anfcpnyp7joyyk-fqnu5gq5wjsiighhcrt4pru2nnhjb6y51ckk1m91hhf-vgxqymv-q3x4nmvhbjavzk6-gbgus-cjhtuugm2t5hvj-fwsqsgyqzwxnfnpwibxuqfhvf2w2hufyusmxipbhercdyguw2pqnrt7kdgfulrxfoqyqx7-bbrlmnyalztpq16mxvubym1gfle9jeyx3l1cejoeej723xiigkxrxtxcvbr3agwdozm1jpneqv3oxo42amryv2k835gybp5sdq1cp1qsvhcmlusz8yzlbnet8-ngm2quurndiglcmv-vbz3pdrhsg24vddgsep-nlkewnmcig-trp-uwnlzf7nfsbhq88io66yackifjpnte1vc6ulnht-z4plcubraqfsozo2ekwxx9djqlb4-t9xhee1daescthon075h1w4tc2l6hupkyv8c-fmeviavtwhajkol6mzr-uz9balda2cqftj7r10alngqcmuy0k3t7ja-w1552-h914-no-authuser-0-)
   * [🎑 만들게 된 배경 설명 &  목적](#--------------------)
     + [배경 설명](#-----)
     + [목적](#--)
@@ -40,6 +39,7 @@
   * [💏 **10조 한줄 회고**](#-----10---------)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
+
 
 
 # ****🎡**** 짤태식이 돌아왔구나 - ****프로젝트 소개****
