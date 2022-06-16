@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CommentDto {
-    private Long userId;
+    //private Long userId;
     private Long postId;
     private String comment;
 }

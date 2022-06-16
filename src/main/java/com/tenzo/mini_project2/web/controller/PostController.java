@@ -1,6 +1,7 @@
 package com.tenzo.mini_project2.web.controller;
 
 import com.tenzo.mini_project2.security.UserDetailsImpl;
+import com.tenzo.mini_project2.web.dto.commentDto.CommentDeleteRequestDto;
 import com.tenzo.mini_project2.web.dto.commentDto.CommentDto;
 import com.tenzo.mini_project2.web.dto.postDto.PostRequestDto;
 import com.tenzo.mini_project2.web.service.PostService;
@@ -34,6 +35,7 @@ public class PostController {
         return postService.enrollMeme(userDetails, postRequestDto);
     }
     //댓글 조회
+    @PermitAll
     @GetMapping("/getCommentsByPostId")
     public ResponseEntity<?>getCommentsByPostId(@RequestParam Long postId){
         return postService.getCommentsById(postId);
@@ -41,6 +43,11 @@ public class PostController {
     @PostMapping("/comments")
     public ResponseEntity<?> postComment(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestBody CommentDto commentDto){
         return postService.postComment(userDetails, commentDto);
+    }
+
+    @PostMapping("/commentDelete")
+    public ResponseEntity<?> commentDelete(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestBody CommentDeleteRequestDto dto){
+        return postService.commentDelete(userDetails, dto);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.tenzo.mini_project2.web.dto.commentDto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.querydsl.core.annotations.QueryProjection;
 import com.tenzo.mini_project2.security.model.User;
 import lombok.AllArgsConstructor;
@@ -14,7 +15,7 @@ public class CommentsResponseDto {
     private Long id;
     private String nickname;
     private String content;
-    private LocalDateTime createdAt;
+    private String createdAt;
 
     @QueryProjection
     public CommentsResponseDto(
@@ -26,6 +27,6 @@ public class CommentsResponseDto {
         this.id = id;
         this.nickname = user.getNickname();
         this.content = content;
-        this.createdAt = createdAt;
+        this.createdAt = createdAt.toString();
     }
 }

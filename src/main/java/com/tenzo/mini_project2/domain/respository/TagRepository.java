@@ -10,4 +10,6 @@ public interface TagRepository extends JpaRepository<Tags, Long> {
 
     @Query("select distinct(this.tag), this.id from tagInfo this")
     List<Tags>getTags();
+
+    boolean existsByTag(String tag);
 }

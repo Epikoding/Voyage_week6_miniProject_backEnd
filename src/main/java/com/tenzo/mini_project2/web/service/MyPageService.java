@@ -51,7 +51,8 @@ public class MyPageService {
         );
 
         postFoundInDb.update(myPageRequestDto, resolveTags(myPageRequestDto));
-        return new ResponseEntity<>(postRepository.save(postFoundInDb), HttpStatus.OK);
+        postRepository.save(postFoundInDb);
+        return new ResponseEntity<>("수정 완료", HttpStatus.OK);
     }
 
     public ResponseEntity<?> delete(Long postId, @AuthenticationPrincipal UserDetailsImpl userDetails) {
@@ -60,7 +61,7 @@ public class MyPageService {
 
         postRepository.delete(postFoundInDb);
 
-        return new ResponseEntity<>("삭제되었습니다.", HttpStatus.OK);
+        return new ResponseEntity<>("삭제 완료.", HttpStatus.OK);
     }
 
     @Transactional

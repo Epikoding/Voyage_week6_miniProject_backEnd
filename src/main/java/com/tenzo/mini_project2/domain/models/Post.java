@@ -6,8 +6,6 @@ import com.tenzo.mini_project2.web.dto.myPageDto.MyPageRequestDto;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -56,27 +54,14 @@ public class Post extends Timestamped {
     private User user;
 
 
-    public void update(MyPageRequestDto dto, Set<Tags>tags) {
+    public void update(MyPageRequestDto dto, Set<Tags> tags) {
 
         this.title = dto.getTitle();
         this.up_layer_value = dto.getUp_layer_value();
         this.down_layer_value = dto.getDown_layer_value();
         this.up_txt = dto.getUp_txt();
-        this.down_txt = dto.getDown_txt(); ;
+        this.down_txt = dto.getDown_txt();
         this.tagList = tags;
 
     }
-
-    public void addComment(Comment comment){
-        this.commentList.add(comment);
-    }
-
-    public void removeComment(Comment comment){
-        this.commentList.remove(comment);
-    }
-
-
-
-
-
 }

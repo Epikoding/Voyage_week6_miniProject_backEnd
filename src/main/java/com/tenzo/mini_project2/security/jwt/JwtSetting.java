@@ -19,7 +19,7 @@ public enum JwtSetting {
 
     // 유효시간
     public enum ExpireTime{
-        ACCESS_TOKEN_EXPIRE_TIME( 30 * 60 * 1000L),// 30분
+        ACCESS_TOKEN_EXPIRE_TIME( 40 * 60 * 1000L),// 30분
         REFRESH_TOKEN_EXPIRE_TIME(7 * 24 * 60 * 60 * 1000L);//7일
 
         private final Long ExpireTime;

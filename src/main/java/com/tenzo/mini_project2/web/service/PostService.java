@@ -8,6 +8,7 @@ import com.tenzo.mini_project2.domain.respository.PostRepository;
 import com.tenzo.mini_project2.domain.respository.TagRepository;
 import com.tenzo.mini_project2.security.UserDetailsImpl;
 import com.tenzo.mini_project2.security.repository.UserRepository;
+import com.tenzo.mini_project2.web.dto.commentDto.CommentDeleteRequestDto;
 import com.tenzo.mini_project2.web.dto.commentDto.CommentDto;
 import com.tenzo.mini_project2.web.dto.myPageDto.MyPageRequestDto;
 import com.tenzo.mini_project2.web.dto.postDto.PostRequestDto;
@@ -90,6 +91,23 @@ public class PostService {
         return new ResponseEntity<>("등록 완료", HttpStatus.OK);
     }
 
+    @Transactional
+    public ResponseEntity<?> commentDelete(@AuthenticationPrincipal UserDetailsImpl userDetails, CommentDeleteRequestDto dto) {
+        Post post = postRepository.findByIdAndUser(dto.getPostId(), userDetails.getUser()).orElseThrow(
+                () -> new IllegalArgumentException("수정 권한이 없습니다.")
+        );
+        List<Comment> commentList = post.getCommentList();
+        for (Comment comment : commentList) {
+            if (comment.getId().equals(dto.getCommentId())) {
+                commentList.remove(comment);
+                commentRepository.deleteById(dto.getCommentId());
+                break;
+            }
+        }
+        post.setCommentList(commentList);
+        postRepository.save(post);
+        return new ResponseEntity<>("삭제 완료", HttpStatus.OK);
+    }
 
     public List<Tags> resolveTags(PostRequestDto postRequestDto) {
         List<Tags> list = new LinkedList<>();

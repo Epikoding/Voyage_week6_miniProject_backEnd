@@ -1,11 +1,8 @@
 package com.tenzo.mini_project2.domain.respository;
 
 
-import com.querydsl.core.types.ExpressionUtils;
-import com.querydsl.core.types.Projections;
-import com.querydsl.jpa.JPAExpressions;
+
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.tenzo.mini_project2.domain.models.Comment;
 import com.tenzo.mini_project2.domain.models.Post;
 import com.tenzo.mini_project2.web.dto.commentDto.CommentsResponseDto;
 import com.tenzo.mini_project2.web.dto.commentDto.QCommentsResponseDto;
@@ -52,6 +49,7 @@ public class CustomPostRepositoryImpl implements CustomPostRepository {
                 .from(comment)
                 .leftJoin(comment.userId, user)
                 .where(comment.postId.eq(postId))
+                .orderBy(comment.createdAt.desc())
                 .fetch();
     }
 }
